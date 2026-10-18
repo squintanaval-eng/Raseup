@@ -1,1 +1,85 @@
 
+:root {
+  --verde: #C8E6C9;
+  --verde-fuerte: #69A889;
+  --celeste: #D6F0F7;
+  --amarillo: #FFF2C6;
+  --rosa: #F8DDE6;
+  --lavanda: #E8DFF5;
+  --fondo: #FAFCF8;
+  --texto: #34483D;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+header {
+  background: var(--verde);
+  padding: 24px;
+  text-align: center;
+  border-radius: 0 0 28px 28px;
+}
+
+h1, h2, h3 {
+  color: var(--texto);
+}
+
+.contenedor {
+  max-width: 1100px;
+  margin: auto;
+  padding: 24px;
+}
+
+.tarjeta {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 8px 25px #34483D12;
+  transition: transform 0.25s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+}
+
+button, .boton {
+  background: var(--verde);
+  color: var(--texto);
+  border: none;
+  border-radius: 16px;
+  padding: 14px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover, .boton:hover {
+  background: var(--verde-fuerte);
+  color: white;
+}
+
+input, select {
+  border: 2px solid var(--verde);
+  border-radius: 14px;
+  padding: 12px;
+  max-width: 100%;
+}
+
+@media (max-width: 600px) {
+  .contenedor {
+    padding: 16px;
+  }
+
+  header {
+    padding: 20px;
+  }
+}
+
