@@ -74,11 +74,20 @@ module.exports = async function handler(req, res) {
 
     const datos = await respuesta.json();
 
-    if (!respuesta.ok) {
-      return res.status(502).json({
-        error: "Gemini no pudo procesar la imagen."
-      });
-    }
+
+if (!respuesta.ok) {
+  console.error("Error de Gemini:", {
+    codigo: respuesta.status,
+    tipo: datos.error?.status,
+    mensaje: datos.error?.message
+  });
+
+  return res.status(502).json({
+    error: "Error de Gemini (HTTP " +
+      respuesta.status + "): " +
+      (datos.error?.status || "DESCONOCIDO")
+  });
+}
 
     const texto = datos.candidates?.[0]?.content?.parts
       ?.map(p => p.text || "").join("\n");
