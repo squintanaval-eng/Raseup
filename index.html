@@ -1,1 +1,118 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ReuseUp 🌱</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🌱 ReuseUp</h1>
+    <p>¡Pequeñas acciones, grandes cambios!</p>
+    <div class="puntos">⭐ <span id="puntos">0</span> puntos · Nivel <span id="nivel">1</span></div>
+  </header>
+
+  <main class="contenedor">
+    <nav class="menu">
+      <button onclick="mostrar('inicio')">🏠 Inicio</button>
+      <button onclick="mostrar('escaner')">📸 Escáner</button>
+      <button onclick="mostrar('retos')">🏆 Retos</button>
+      <button onclick="mostrar('personaje')">🍃 Personaje</button>
+      <button onclick="mostrar('planeta')">🌍 Planeta</button>
+    </nav>
+
+    <section id="inicio" class="seccion activa">
+      <div class="tarjeta bienvenida">
+        <div class="mascota">🍃</div>
+        <h2>¡Bienvenido a ReuseUp!</h2>
+        <p>Aprende a reciclar, supera retos y ayuda a nuestro planeta.</p>
+        <button onclick="mostrar('escaner')">¡Empezar a reciclar!</button>
+      </div>
+      <div class="cuadricula">
+        <div class="tarjeta pastel-verde">
+          <h3>♻️ Recicla</h3>
+          <p>Descubre dónde depositar tus residuos.</p>
+        </div>
+        <div class="tarjeta pastel-celeste">
+          <h3>🌎 Protege</h3>
+          <p>Aprende a cuidar el medioambiente.</p>
+        </div>
+        <div class="tarjeta pastel-amarillo">
+          <h3>⭐ Gana puntos</h3>
+          <p>Completa actividades ecológicas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="escaner" class="seccion">
+      <div class="tarjeta">
+        <h2>📸 Escáner inteligente</h2>
+        <p>Sube una foto de un residuo y descubre cómo reciclarlo.</p>
+        <input type="file" id="foto" accept="image/*">
+        <img id="vista" alt="Vista previa del residuo" hidden>
+        <button id="analizar" onclick="analizar()">🔍 Analizar residuo</button>
+        <div id="resultado" class="resultado" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section id="retos" class="seccion">
+      <h2>🏆 Misiones ecológicas</h2>
+      <div class="cuadricula">
+        <div class="tarjeta pastel-verde">
+          <h3>♻️ Primer reciclaje</h3>
+          <p>Aprende a clasificar un residuo.</p>
+          <button onclick="reto('reciclaje', 20)">Completar +20 ⭐</button>
+        </div>
+        <div class="tarjeta pastel-celeste">
+          <h3>💧 Aqua Reto</h3>
+          <p>Cierra el grifo mientras te cepillas los dientes.</p>
+          <button onclick="reto('agua', 30)">Completar +30 ⭐</button>
+        </div>
+        <div class="tarjeta pastel-amarillo">
+          <h3>🌳 Planta Futura</h3>
+          <p>Cuida una planta y aprende qué necesita para vivir.</p>
+          <button onclick="reto('planta', 40)">Completar +40 ⭐</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="personaje" class="seccion">
+      <div class="tarjeta bienvenida">
+        <h2>🍃 Mi personaje</h2>
+        <div id="avatar" class="mascota">🍃</div>
+        <p>Personaliza a tu compañero ecológico.</p>
+        <input id="nombre" placeholder="Nombre de tu personaje" maxlength="20">
+        <button onclick="guardarNombre()">Guardar nombre</button>
+        <h3 id="nombreMostrado">Hojita</h3>
+        <p>Elige tu apariencia:</p>
+        <div class="opciones">
+          <button onclick="cambiarAvatar('🍃')">🍃</button>
+          <button onclick="cambiarAvatar('🌱')">🌱</button>
+          <button onclick="cambiarAvatar('🌻')">🌻</button>
+          <button onclick="cambiarAvatar('🌵')">🌵</button>
+        </div>
+        <p>⭐ <span id="puntosPerfil">0</span> puntos acumulados</p>
+      </div>
+    </section>
+
+    <section id="planeta" class="seccion">
+      <div class="tarjeta bienvenida">
+        <h2>🌍 Nuestro planeta</h2>
+        <div class="mascota">🌎</div>
+        <p>Cada pequeña acción cuenta para construir un futuro mejor.</p>
+        <h3>Consejos ecológicos</h3>
+        <p>♻️ Separa los residuos según las normas de tu localidad.</p>
+        <p>💧 Ahorra agua siempre que puedas.</p>
+        <p>🌱 Cuida las plantas y los espacios verdes.</p>
+        <p>🔋 Lleva las pilas usadas a puntos de recolección autorizados.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>Hecho con 💚 para cuidar nuestro planeta · ReuseUp 2026</footer>
+  <script src="script.js"></script>
+</body>
+</html>
+
