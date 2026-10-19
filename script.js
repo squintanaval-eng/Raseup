@@ -140,3 +140,159 @@ async function analizar() {
 
 actualizar();
 
+const misiones = {
+  reciclaje: {
+    titulo: "♻️ Primer reciclaje",
+    descripcion: "Fotografía un residuo correctamente separado en un recipiente de reciclaje.",
+    puntos: 20
+  },
+  agua: {
+    titulo: "💧 Aqua Reto",
+    descripcion: "Muestra una acción visible para ahorrar agua, como un grifo cerrado mientras te cepillas los dientes.",
+    puntos: 30
+  },
+  planta: {
+    titulo: "🌱 Planta Futura",
+    descripcion: "Fotografía una planta que estés cuidando, por ejemplo mientras la riegas.",
+    puntos: 40
+  }
+};
+
+let misionActual = null;
+let verificandoMision = false;
+
+const fotoMision = document.getElementById("fotoMision");
+const vistaMision = document.getElementById("vistaMision");
+const resultadoMision = document.getElementById("resultadoMision");
+
+function fechaMision() {
+  const fecha = new Date();
+  return [
+    fecha.getFullYear(),
+    String(fecha.getMonth() + 1).padStart(2, "0"),
+    String(fecha.getDate()).padStart(2, "0")
+  ].join("-");
+}
+
+function abrirMision(id) {
+  if (!misiones[id] || verificandoMision) return;
+
+  misionActual = id;
+  const mision = misiones[id];
+
+  document.getElementById("panelMision").hidden = false;
+  document.getElementById("tituloMision").textContent = mision.titulo;
+  document.getElementById("descripcionMision").textContent =
+    mision.descripcion;
+
+  fotoMision.value = "";
+  vistaMision.hidden = true;
+  resultadoMision.textContent = "";
+
+  if (completados[id] === fechaMision()) {
+    resultadoMision.textContent =
+      "✅ Ya completaste esta misión hoy. ¡Vuelve mañana!";
+  }
+
+  document.getElementById("panelMision").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
+
+fotoMision.addEventListener("change", () => {
+  const archivo = fotoMision.files[0];
+  vistaMision.hidden = true;
+  if (!archivo) return;
+
+  if (!["image/jpeg", "image/png", "image/webp"].includes(archivo.type)) {
+    alert("Selecciona una imagen JPG, PNG o WebP.");
+    fotoMision.value = "";
+    return;
+  }
+
+  if (archivo.size > 4 * 1024 * 1024) {
+    alert("La imagen debe pesar menos de 4 MB.");
+    fotoMision.value = "";
+    return;
+  }
+
+  const url = URL.createObjectURL(archivo);
+  vistaMision.onload = () => URL.revokeObjectURL(url);
+  vistaMision.src = url;
+  vistaMision.hidden = false;
+});
+
+async function verificarMision() {
+  if (verificandoMision || !misionActual) return;
+
+  const id = misionActual;
+  const mision = misiones[id];
+  const archivo = fotoMision.files[0];
+
+  if (completados[id] === fechaMision()) {
+    resultadoMision.textContent =
+      "Ya recibiste los puntos de esta misión hoy. 🌱";
+    return;
+  }
+
+  if (!archivo) {
+    resultadoMision.textContent = "📸 Primero sube una fotografía.";
+    return;
+  }
+
+  if (!["image/jpeg", "image/png", "image/webp"].includes(archivo.type)
+      || archivo.size > 4 * 1024 * 1024) {
+    resultadoMision.textContent = "Imagen no válida o demasiado grande.";
+    return;
+  }
+
+  verificandoMision = true;
+  document.getElementById("botonVerificar").disabled = true;
+  resultadoMision.textContent = "🤖 Gemini está revisando tu misión...";
+
+  try {
+    const imagen = await new Promise((resolve, reject) => {
+      const lector = new FileReader();
+      lector.onload = () => resolve(lector.result.split(",")[1]);
+      lector.onerror = reject;
+      lector.readAsDataURL(archivo);
+    });
+
+    const respuesta = await fetch("/api/analizar", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        accion: "verificar_mision",
+        mision: id,
+        imagen,
+        tipo: archivo.type
+      })
+    });
+
+    const datos = await respuesta.json();
+
+    if (!respuesta.ok) {
+      throw new Error(datos.error || "Error de verificación.");
+    }
+
+    resultadoMision.textContent = datos.mensaje ||
+      "No se pudo determinar el resultado.";
+
+    if (datos.aprobado === true) {
+      if (completados[id] !== fechaMision()) {
+        completados[id] = fechaMision();
+        sumar(mision.puntos);
+        resultadoMision.textContent +=
+          "\n\n🎉 ¡Ganaste " + mision.puntos + " puntos!";
+      }
+    }
+
+  } catch (error) {
+    resultadoMision.textContent = "⚠️ " + error.message;
+  } finally {
+    verificandoMision = false;
+    document.getElementById("botonVerificar").disabled = false;
+  }
+}
+
