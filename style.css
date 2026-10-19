@@ -318,3 +318,51 @@ button:focus-visible {
     transition-duration: .01ms !important;
   }
 }
+
+/* MISIONES REUSEUP */
+
+.panel-mision {
+  margin-top: 28px;
+  background: linear-gradient(135deg, #F0FFF5, #EDF2FF);
+  border: 2px solid #C9EBD6;
+  animation: entrar .45s ease;
+}
+
+.panel-mision[hidden],
+.vista-mision[hidden] {
+  display: none;
+}
+
+.panel-mision label {
+  display: block;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.vista-mision {
+  display: block;
+  max-width: 100%;
+  max-height: 300px;
+  margin: 20px auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px #34465B30;
+}
+
+#resultadoMision {
+  background: linear-gradient(135deg, #E2F7FF, #E8F8E9);
+  white-space: pre-wrap;
+}
+
+#resultadoMision:empty {
+  display: none;
+}
+
+#botonVerificar {
+  background: linear-gradient(120deg, #A5E8C0, #B7DFFF);
+  margin-top: 12px;
+}
+
+#botonVerificar:disabled {
+  opacity: .55;
+  cursor: wait;
+}
