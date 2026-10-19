@@ -57,26 +57,60 @@
       </div>
     </section>
 
-    <section id="retos" class="seccion">
-      <h2>🏆 Misiones ecológicas</h2>
-      <div class="cuadricula">
-        <div class="tarjeta pastel-verde">
-          <h3>♻️ Primer reciclaje</h3>
-          <p>Aprende a clasificar un residuo.</p>
-          <button onclick="reto('reciclaje', 20)">Completar +20 ⭐</button>
-        </div>
-        <div class="tarjeta pastel-celeste">
-          <h3>💧 Aqua Reto</h3>
-          <p>Cierra el grifo mientras te cepillas los dientes.</p>
-          <button onclick="reto('agua', 30)">Completar +30 ⭐</button>
-        </div>
-        <div class="tarjeta pastel-amarillo">
-          <h3>🌳 Planta Futura</h3>
-          <p>Cuida una planta y aprende qué necesita para vivir.</p>
-          <button onclick="reto('planta', 40)">Completar +40 ⭐</button>
-        </div>
-      </div>
-    </section>
+   
+<section id="retos" class="seccion">
+  <h2>🏆 Misiones ecológicas</h2>
+  <p>¡Completa misiones y demuestra tus logros con una foto!</p>
+
+  <div class="cuadricula">
+    <div class="tarjeta pastel-verde">
+      <h3>♻️ Primer reciclaje</h3>
+      <p>Separa correctamente un residuo reciclable.</p>
+      <strong>⭐ 20 puntos</strong>
+      <button onclick="abrirMision('reciclaje')">
+        📸 Demostrar misión
+      </button>
+    </div>
+
+    <div class="tarjeta pastel-celeste">
+      <h3>💧 Aqua Reto</h3>
+      <p>Demuestra una acción para ahorrar agua.</p>
+      <strong>⭐ 30 puntos</strong>
+      <button onclick="abrirMision('agua')">
+        📸 Demostrar misión
+      </button>
+    </div>
+
+    <div class="tarjeta pastel-amarillo">
+      <h3>🌱 Planta Futura</h3>
+      <p>Cuida una planta y muestra tu trabajo.</p>
+      <strong>⭐ 40 puntos</strong>
+      <button onclick="abrirMision('planta')">
+        📸 Demostrar misión
+      </button>
+    </div>
+  </div>
+
+  <div id="panelMision" class="tarjeta panel-mision" hidden>
+    <h3 id="tituloMision">📸 Tu misión</h3>
+    <p id="descripcionMision"></p>
+
+    <label for="fotoMision">Selecciona una fotografía:</label>
+    <input type="file" id="fotoMision"
+           accept="image/jpeg,image/png,image/webp">
+
+    <img id="vistaMision" alt="Vista previa"
+         class="vista-mision" hidden>
+
+    <button id="botonVerificar" onclick="verificarMision()">
+      🤖 Verificar con Gemini
+    </button>
+
+    <div id="resultadoMision"
+         class="resultado" aria-live="polite"></div>
+  </div>
+</section>
+
 
     <section id="personaje" class="seccion">
       <div class="tarjeta bienvenida">
