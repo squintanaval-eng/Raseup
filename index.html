@@ -131,18 +131,67 @@
       </div>
     </section>
 
-    <section id="planeta" class="seccion">
-      <div class="tarjeta bienvenida">
-        <h2>🌍 Nuestro planeta</h2>
-        <div class="mascota">🌎</div>
-        <p>Cada pequeña acción cuenta para construir un futuro mejor.</p>
-        <h3>Consejos ecológicos</h3>
-        <p>♻️ Separa los residuos según las normas de tu localidad.</p>
-        <p>💧 Ahorra agua siempre que puedas.</p>
-        <p>🌱 Cuida las plantas y los espacios verdes.</p>
-        <p>🔋 Lleva las pilas usadas a puntos de recolección autorizados.</p>
-      </div>
-    </section>
+    
+<section id="planeta" class="seccion">
+  <div class="planeta-encabezado">
+    <div class="planeta-icono">🌎</div>
+    <h2>Explora nuestro planeta</h2>
+    <p>¡Aprende, juega y conviértete en un héroe ecológico!</p>
+  </div>
+
+  <!-- CONSEJOS ALEATORIOS -->
+  <div class="eco-panel eco-consejos">
+    <span class="eco-etiqueta">🌱 Aprende algo nuevo</span>
+    <h3>Consejos para cuidar la Tierra</h3>
+
+    <div class="eco-consejo-tarjeta" id="tarjetaConsejo">
+      <div id="consejoEmoji" class="eco-consejo-emoji">💧</div>
+      <p id="consejoTexto">
+        ¡Pulsa el botón para descubrir un consejo!
+      </p>
+    </div>
+
+    <button class="eco-boton" onclick="nuevoConsejo()">
+      🔄 ¡Otro consejo!
+    </button>
+    <p class="eco-nota">Los 30 consejos aparecen sin repetirse hasta terminar la ronda.</p>
+  </div>
+
+  <!-- ECOQUIZ -->
+  <div class="eco-panel eco-quiz">
+    <div class="eco-quiz-superior">
+      <span class="eco-etiqueta">🧠 EcoQuiz</span>
+      <span id="ecoPuntosHoy" class="eco-puntos">
+        ⭐ 0 / 50 puntos hoy
+      </span>
+    </div>
+
+    <h3>¿Cuánto sabes del planeta?</h3>
+
+    <div class="eco-progreso">
+      <div id="ecoBarra" class="eco-progreso-relleno"></div>
+    </div>
+
+    <div id="ecoPreguntaCaja" class="eco-pregunta-caja">
+      <div id="ecoPreguntaEmoji" class="eco-pregunta-emoji">🌎</div>
+      <p id="ecoContador">Pregunta 1</p>
+      <h3 id="ecoPreguntaTexto">Cargando pregunta...</h3>
+      <div id="ecoOpciones" class="eco-opciones"></div>
+      <p id="ecoResultado" aria-live="polite"></p>
+    </div>
+
+    <button id="ecoSiguiente" class="eco-boton"
+            onclick="siguienteEcoPregunta()" disabled>
+      Siguiente pregunta ➜
+    </button>
+
+    <p class="eco-nota">
+      Responde correctamente y gana ⭐ 10 puntos.
+      Máximo 50 puntos diarios.
+    </p>
+  </div>
+</section>
+
   </main>
 
   <footer>Hecho con 💚 para cuidar nuestro planeta · ReuseUp 2026</footer>
