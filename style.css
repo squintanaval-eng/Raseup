@@ -166,3 +166,155 @@ footer {
   .menu button { flex: 1 1 120px; }
 }
 
+
+/* REUSEUP 2.0 - ESTILO PASTEL */
+
+:root {
+  --verde: #BDECCB;
+  --verde-fuerte: #54AE83;
+  --celeste: #C9EFFF;
+  --amarillo: #FFF0B3;
+  --rosa: #FFD9E8;
+  --lavanda: #E5D9FF;
+  --fondo: #F8FAFF;
+  --texto: #34465B;
+}
+
+body {
+  background: linear-gradient(
+    125deg,
+    #F0FFF5,
+    #F1F7FF,
+    #FFF3FA,
+    #F6F0FF
+  );
+  background-size: 300% 300%;
+  animation: fondoVivo 18s ease infinite;
+  min-height: 100vh;
+}
+
+@keyframes fondoVivo {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* CABECERA */
+
+header {
+  background: linear-gradient(
+    120deg,
+    #BDECCB,
+    #C9EFFF,
+    #E5D9FF
+  );
+  border-radius: 0 0 38px 38px;
+  box-shadow: 0 10px 30px #7BBAA32A;
+}
+
+header h1 {
+  color: #27694F;
+  text-shadow: 0 3px 12px #FFFFFF90;
+}
+
+/* TARJETAS */
+
+.tarjeta {
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 10px 30px #657B9820;
+  transition: transform .3s, box-shadow .3s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 35px #657B9833;
+}
+
+.pastel-verde {
+  background: linear-gradient(135deg,#DFF8E6,#C9F0D7);
+}
+
+.pastel-celeste {
+  background: linear-gradient(135deg,#E2F7FF,#CDEBFF);
+}
+
+.pastel-amarillo {
+  background: linear-gradient(135deg,#FFF8DC,#FFEFC0);
+}
+
+/* BOTONES */
+
+button {
+  transition: transform .2s, box-shadow .2s,
+              background .2s;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 7px 18px #54AE8340;
+}
+
+button:active:not(:disabled) {
+  transform: scale(.96);
+}
+
+button:focus-visible {
+  outline: 3px solid #4F93D1;
+  outline-offset: 3px;
+}
+
+/* NAVEGACIÓN */
+
+.menu {
+  background: #FFFFFFB8;
+  padding: 14px;
+  border-radius: 24px;
+  box-shadow: 0 8px 24px #657B9818;
+}
+
+/* MASCOTA */
+
+.mascota {
+  filter: drop-shadow(0 8px 10px #7BC6A650);
+  animation: mascotaFlotante 3s ease-in-out infinite;
+}
+
+@keyframes mascotaFlotante {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+/* TRANSICIÓN DE SECCIONES */
+
+.seccion.activa {
+  animation: entrar .45s ease both;
+}
+
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* CONSEJOS */
+
+.consejo-caja {
+  background: linear-gradient(
+    135deg,#E1F9EA,#E3F4FF,#F1E8FF
+  );
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 8px 24px #83BDA52B;
+}
+
+/* ACCESIBILIDAD */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
