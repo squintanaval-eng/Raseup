@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ReuseUp 🌱</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="reuseup-2.css">
 </head>
 <body>
   <header>
@@ -21,6 +22,7 @@
       <button onclick="mostrar('retos')">🏆 Retos</button>
       <button onclick="mostrar('personaje')">🍃 Personaje</button>
       <button onclick="mostrar('planeta')">🌍 Planeta</button>
+      <button onclick="mostrar('ranking')">🏆 Top recicladores</button>
     </nav>
 
     <section id="inicio" class="seccion activa">
@@ -192,10 +194,30 @@
   </div>
 </section>
 
+    <section id="ranking" class="seccion">
+      <div class="ranking-hero tarjeta">
+        <span class="ranking-kicker">REUSE UP · COMUNIDAD</span>
+        <h2>Top recicladores</h2>
+        <p>Gana puntos completando misiones y EcoQuiz. ¡Cada acción cuenta!</p>
+        <div class="ranking-tabs" role="group" aria-label="Periodo del ranking">
+          <button type="button" data-periodo="semana" onclick="cambiarPeriodoRanking('semana')">Esta semana</button>
+          <button type="button" data-periodo="mes" onclick="cambiarPeriodoRanking('mes')">Este mes</button>
+          <button type="button" data-periodo="total" onclick="cambiarPeriodoRanking('total')">Histórico</button>
+        </div>
+      </div>
+      <div class="tarjeta ranking-panel">
+        <div class="ranking-topline"><h3>Tu clasificación</h3><span id="rankingPeriodo">Histórico</span></div>
+        <div id="rankingPodio" class="ranking-podio" aria-live="polite"></div>
+        <div id="rankingLista" class="ranking-lista"></div>
+        <p class="ranking-aviso">Versión local: solo se muestran los puntos guardados en este dispositivo. El ranking mundial estará disponible cuando se conecten cuentas y una base de datos.</p>
+      </div>
+    </section>
   </main>
 
   <footer>Hecho con 💚 para cuidar nuestro planeta · ReuseUp 2026</footer>
   <script src="script.js"></script>
+  <script src="ranking.js"></script>
+  <script src="visual.js"></script>
 </body>
 </html>
 
