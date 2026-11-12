@@ -1,0 +1,20 @@
+name: Gemini API checks
+on:
+  push:
+    branches: [main, feature/reuseup-ranking-visual-2]
+    paths: ['api/**', 'tests/gemini-api.test.cjs', 'vercel.json', '.github/workflows/gemini-api.yml']
+  pull_request:
+    branches: [main]
+    paths: ['api/**', 'tests/gemini-api.test.cjs', 'vercel.json', '.github/workflows/gemini-api.yml']
+permissions:
+  contents: read
+jobs:
+  api:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/gemini-api.test.cjs
