@@ -25,3 +25,10 @@ const nodes=[...imageIds,...textIds].map(id=>document.getElementById(id)).filter
 function render(){for(const id of imageIds){const el=document.getElementById(id);if(!el||el.querySelector('svg'))continue;const text=el.textContent.trim();const name=paths[text]?text:Object.entries(mapping).find(([key])=>text.startsWith(key))?.[1]||'leaf';el.innerHTML=svg(name);if(id==='avatar'){el.setAttribute('role','img');el.setAttribute('aria-label','Tu personaje ecol\u00f3gico');}}for(const id of textIds){const el=document.getElementById(id);if(!el)continue;const text=el.textContent.replace(/[\p{Extended_Pictographic}\uFE0F\u200D]/gu,'').trim();if(text!==el.textContent)el.textContent=text;}}
 const observer=new MutationObserver(()=>{observer.disconnect();render();watch();});function watch(){nodes.forEach(el=>observer.observe(el,{childList:true,subtree:true,characterData:true}));}render();watch();
 })();
+
+// Additive enhancement: keep original accounts, scanner and game intact.
+(() => {
+  const theme=document.createElement('link');theme.rel='stylesheet';theme.href='vivid.css?v=1';document.head.append(theme);
+  const chat=document.createElement('script');chat.src='chat.js?v=1';chat.onerror=()=>window.ReuseProgress?.toast('No se pudo cargar el chat. Recarga la p\u00e1gina.');document.body.append(chat);
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content','#123d32');
+})();
