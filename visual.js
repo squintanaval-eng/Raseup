@@ -22,7 +22,7 @@
   };
   function svg(tipo){const path=shapes[tipo]||shapes.leaf;return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="18" fill="#e2f5e9"/><g fill="none" stroke="#25835d" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">'+path+'</g></svg>');}
   function decorar(el) {
-    if(!el||el.dataset.visualDecorado)return;
+    if(!el || (el.dataset.visualDecorado && el.querySelector(":scope > img.eco-ilustracion")))return;
     const text=el.textContent.trim();
     if(!text||!emojis.test(text))return;
     const emoji=Object.keys(mapping).find(e=>text.startsWith(e));
