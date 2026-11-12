@@ -1,201 +1,22 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ReuseUp 🌱</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#17634a"><meta name="referrer" content="strict-origin-when-cross-origin"><meta name="description" content="Aprende a reciclar, completa misiones y guarda tu progreso con ReuseUp."><title>ReuseUp | Cada acci&oacute;n cuenta</title><link rel="stylesheet" href="reuseup-2.css"></head>
 <body>
-  <header>
-    <h1>🌱 ReuseUp</h1>
-    <p>¡Pequeñas acciones, grandes cambios!</p>
-    <div class="puntos">⭐ <span id="puntos">0</span> puntos · Nivel <span id="nivel">1</span></div>
-  </header>
-
-  <main class="contenedor">
-    <nav class="menu">
-      <button onclick="mostrar('inicio')">🏠 Inicio</button>
-      <button onclick="mostrar('escaner')">📸 Escáner</button>
-      <button onclick="mostrar('retos')">🏆 Retos</button>
-      <button onclick="mostrar('personaje')">🍃 Personaje</button>
-      <button onclick="mostrar('planeta')">🌍 Planeta</button>
-    </nav>
-
-    <section id="inicio" class="seccion activa">
-      <div class="tarjeta bienvenida">
-        <div class="mascota">🍃</div>
-        <h2>¡Bienvenido a ReuseUp!</h2>
-        <p>Aprende a reciclar, supera retos y ayuda a nuestro planeta.</p>
-        <button onclick="mostrar('escaner')">¡Empezar a reciclar!</button>
-      </div>
-      <div class="cuadricula">
-        <div class="tarjeta pastel-verde">
-          <h3>♻️ Recicla</h3>
-          <p>Descubre dónde depositar tus residuos.</p>
-        </div>
-        <div class="tarjeta pastel-celeste">
-          <h3>🌎 Protege</h3>
-          <p>Aprende a cuidar el medioambiente.</p>
-        </div>
-        <div class="tarjeta pastel-amarillo">
-          <h3>⭐ Gana puntos</h3>
-          <p>Completa actividades ecológicas.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="escaner" class="seccion">
-      <div class="tarjeta">
-        <h2>📸 Escáner inteligente</h2>
-        <p>Sube una foto de un residuo y descubre cómo reciclarlo.</p>
-        <input type="file" id="foto" accept="image/*">
-        <img id="vista" alt="Vista previa del residuo" hidden>
-        <button id="analizar" onclick="analizar()">🔍 Analizar residuo</button>
-        <div id="resultado" class="resultado" aria-live="polite"></div>
-      </div>
-    </section>
-
-   
-<section id="retos" class="seccion">
-  <h2>🏆 Misiones ecológicas</h2>
-  <p>¡Completa misiones y demuestra tus logros con una foto!</p>
-
-  <div class="cuadricula">
-    <div class="tarjeta pastel-verde">
-      <h3>♻️ Primer reciclaje</h3>
-      <p>Separa correctamente un residuo reciclable.</p>
-      <strong>⭐ 20 puntos</strong>
-      <button onclick="abrirMision('reciclaje')">
-        📸 Demostrar misión
-      </button>
-    </div>
-
-    <div class="tarjeta pastel-celeste">
-      <h3>💧 Aqua Reto</h3>
-      <p>Demuestra una acción para ahorrar agua.</p>
-      <strong>⭐ 30 puntos</strong>
-      <button onclick="abrirMision('agua')">
-        📸 Demostrar misión
-      </button>
-    </div>
-
-    <div class="tarjeta pastel-amarillo">
-      <h3>🌱 Planta Futura</h3>
-      <p>Cuida una planta y muestra tu trabajo.</p>
-      <strong>⭐ 40 puntos</strong>
-      <button onclick="abrirMision('planta')">
-        📸 Demostrar misión
-      </button>
-    </div>
-  </div>
-
-  <div id="panelMision" class="tarjeta panel-mision" hidden>
-    <h3 id="tituloMision">📸 Tu misión</h3>
-    <p id="descripcionMision"></p>
-
-    <label for="fotoMision">Selecciona una fotografía:</label>
-    <input type="file" id="fotoMision"
-           accept="image/jpeg,image/png,image/webp">
-
-    <img id="vistaMision" alt="Vista previa"
-         class="vista-mision" hidden>
-
-    <button id="botonVerificar" onclick="verificarMision()">
-      🤖 Verificar con Gemini
-    </button>
-
-    <div id="resultadoMision"
-         class="resultado" aria-live="polite"></div>
-  </div>
-</section>
-
-
-    <section id="personaje" class="seccion">
-      <div class="tarjeta bienvenida">
-        <h2>🍃 Mi personaje</h2>
-        <div id="avatar" class="mascota">🍃</div>
-        <p>Personaliza a tu compañero ecológico.</p>
-        <input id="nombre" placeholder="Nombre de tu personaje" maxlength="20">
-        <button onclick="guardarNombre()">Guardar nombre</button>
-        <h3 id="nombreMostrado">Hojita</h3>
-        <p>Elige tu apariencia:</p>
-        <div class="opciones">
-          <button onclick="cambiarAvatar('🍃')">🍃</button>
-          <button onclick="cambiarAvatar('🌱')">🌱</button>
-          <button onclick="cambiarAvatar('🌻')">🌻</button>
-          <button onclick="cambiarAvatar('🌵')">🌵</button>
-        </div>
-        <p>⭐ <span id="puntosPerfil">0</span> puntos acumulados</p>
-      </div>
-    </section>
-
-    
-<section id="planeta" class="seccion">
-  <div class="planeta-encabezado">
-    <div class="planeta-icono">🌎</div>
-    <h2>Explora nuestro planeta</h2>
-    <p>¡Aprende, juega y conviértete en un héroe ecológico!</p>
-  </div>
-
-  <!-- CONSEJOS ALEATORIOS -->
-  <div class="eco-panel eco-consejos">
-    <span class="eco-etiqueta">🌱 Aprende algo nuevo</span>
-    <h3>Consejos para cuidar la Tierra</h3>
-
-    <div class="eco-consejo-tarjeta" id="tarjetaConsejo">
-      <div id="consejoEmoji" class="eco-consejo-emoji">💧</div>
-      <p id="consejoTexto">
-        ¡Pulsa el botón para descubrir un consejo!
-      </p>
-    </div>
-
-    <button class="eco-boton" onclick="nuevoConsejo()">
-      🔄 ¡Otro consejo!
-    </button>
-    <p class="eco-nota">Los 30 consejos aparecen sin repetirse hasta terminar la ronda.</p>
-  </div>
-
-  <!-- ECOQUIZ -->
-  <div class="eco-panel eco-quiz">
-    <div class="eco-quiz-superior">
-      <span class="eco-etiqueta">🧠 EcoQuiz</span>
-      <span id="ecoPuntosHoy" class="eco-puntos">
-        ⭐ 0 / 50 puntos hoy
-      </span>
-    </div>
-
-    <h3>¿Cuánto sabes del planeta?</h3>
-
-    <div class="eco-progreso">
-      <div id="ecoBarra" class="eco-progreso-relleno"></div>
-    </div>
-
-    <div id="ecoPreguntaCaja" class="eco-pregunta-caja">
-      <div id="ecoPreguntaEmoji" class="eco-pregunta-emoji">🌎</div>
-      <p id="ecoContador">Pregunta 1</p>
-      <h3 id="ecoPreguntaTexto">Cargando pregunta...</h3>
-      <div id="ecoOpciones" class="eco-opciones"></div>
-      <p id="ecoResultado" aria-live="polite"></p>
-    </div>
-
-    <button id="ecoSiguiente" class="eco-boton"
-            onclick="siguienteEcoPregunta()" disabled>
-      Siguiente pregunta ➜
-    </button>
-
-    <p class="eco-nota">
-      Responde correctamente y gana ⭐ 10 puntos.
-      Máximo 50 puntos diarios.
-    </p>
-  </div>
-</section>
-
-  </main>
-
-  <footer>Hecho con 💚 para cuidar nuestro planeta · ReuseUp 2026</footer>
-  <script src="script.js"></script>
-</body>
-</html>
-
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<aside class="sidebar"><a class="brand" href="#inicio" onclick="mostrar('inicio');return false"><span data-icon="leaf" class="brand-mark"></span>reuse<b>up.</b></a><span class="nav-label">MI ESPACIO</span><nav class="menu" aria-label="Navegaci&oacute;n principal"><button data-page="inicio" onclick="mostrar('inicio')"><span data-icon="home"></span><span>Inicio</span></button><button data-page="escaner" onclick="mostrar('escaner')"><span data-icon="camera"></span><span>Esc&aacute;ner</span></button><button data-page="retos" onclick="mostrar('retos')"><span data-icon="recycle"></span><span>Misiones</span></button><button data-page="planeta" onclick="mostrar('planeta')"><span data-icon="globe"></span><span>Planeta</span></button><button data-page="ranking" onclick="mostrar('ranking')"><span data-icon="trophy"></span><span>Ranking</span></button><button data-page="personaje" onclick="mostrar('personaje')"><span data-icon="user"></span><span>Mi perfil</span></button></nav><div class="sidebar-note"><span data-icon="sprout"></span><strong>El cambio empieza contigo.</strong><p>Una peque&ntilde;a acci&oacute;n, todos los d&iacute;as.</p></div><small class="sidebar-bottom">REUSEUP / CRECE EN VERDE</small></aside>
+<div class="workspace"><header class="topbar"><div><span class="overline">TU ESPACIO SOSTENIBLE</span><strong id="pageTitle">Vista general</strong></div><div class="top-actions"><span class="points-pill"><span data-icon="star"></span><b id="puntos">0</b><span>pts</span></span><button class="account-chip" onclick="mostrar('cuenta')"><span class="status-dot" id="statusDot"></span><span id="accountLabel">Mi cuenta</span><span data-icon="user"></span></button></div></header><div class="sync-bar"><span id="cuentaEstado" role="status">Comprobando tu sesi&oacute;n...</span><button id="retrySync" class="text-button" hidden>Reintentar</button></div>
+<main id="contenido" tabindex="-1">
+<section id="inicio" class="seccion activa"><div class="section-heading"><div><span class="overline">UN NUEVO D&Iacute;A, UN NUEVO CAMBIO</span><h1>Hola, <span id="saludoNombre">Hojita</span>.</h1><p>Hoy tambi&eacute;n puedes hacer algo bueno por el planeta.</p></div><span class="badge">Tu aventura sostenible</span></div><div class="hero"><div class="hero-copy"><span class="overline">CADA ACCI&Oacute;N CUENTA</span><h2>Peque&ntilde;as acciones.<br>Un planeta <em>mejor.</em></h2><p>Descubre c&oacute;mo reciclar, supera misiones y convierte tus buenos h&aacute;bitos en progreso.</p><div class="button-row"><button class="primary" onclick="mostrar('escaner')">Empezar a reciclar <span data-icon="arrow"></span></button><button class="ghost" onclick="mostrar('retos')">Explorar misiones</button></div></div><div class="hero-art"><svg viewBox="0 0 360 300" role="img" aria-label="Una planta creciendo entre c&iacute;rculos verdes"><defs><linearGradient id="leafFill" x2="1" y2="1"><stop stop-color="#3d9a66"/><stop offset="1" stop-color="#10523d"/></linearGradient></defs><circle cx="190" cy="147" r="125" fill="#d5eaa7"/><circle cx="190" cy="147" r="103" fill="none" stroke="#f3f8de"/><ellipse cx="185" cy="268" rx="92" ry="12" fill="#b0ce8c" opacity=".4"/><path d="M185 220c5-40-5-92 13-147" fill="none" stroke="#256544" stroke-width="10" stroke-linecap="round"/><path d="M188 173C113 182 94 139 99 101c61-5 96 25 89 72ZM190 132c-4-63 34-92 81-90 9 56-26 90-81 90Z" fill="url(#leafFill)"/><path d="m115 119 70 48m16-47 52-58" fill="none" stroke="#9ac590" stroke-width="2"/><path d="M132 205h106l-15 53a10 10 0 0 1-10 8h-55a10 10 0 0 1-10-8Z" fill="#e6efcf"/><rect x="126" y="199" width="118" height="14" rx="7" fill="#fcfff2"/><circle cx="70" cy="80" r="6" fill="#56875a"/><circle cx="288" cy="219" r="8" fill="#edba62"/></svg><span class="floating-tag"><span data-icon="check"></span>Un h&aacute;bito a la vez</span></div></div><div class="stats-grid"><article class="stat"><span class="icon-tile" data-icon="star"></span><div><span>EcoPuntos acumulados</span><strong id="homePoints">0</strong><small>Cada paso suma</small></div></article><article class="stat"><span class="icon-tile blue" data-icon="sprout"></span><div><span>Tu nivel</span><strong id="nivel">1</strong><small id="levelName">Semilla del cambio</small></div></article><article class="stat"><span class="icon-tile sand" data-icon="check"></span><div><span>Misiones de hoy</span><strong id="homeMissions">0 / 3</strong><small>Pasos reales, impacto real</small></div></article></div><div class="section-heading compact"><h2>Sigue haciendo la diferencia</h2><button class="text-button" onclick="mostrar('retos')">Ver misiones &rarr;</button></div><div class="two-columns"><article class="tarjeta"><span class="overline">TU SIGUIENTE PASO</span><div class="mission-feature"><span class="big-icon" data-icon="recycle"></span><div><span class="reward">+20 puntos</span><h3>Una segunda vida</h3><p>Separa un residuo reciclable y muestra tu acci&oacute;n.</p></div></div><button class="secondary full" onclick="mostrar('retos');abrirMision('reciclaje')">Ir a la misi&oacute;n &rarr;</button></article><article class="tarjeta"><span class="overline">PASO A PASO</span><h3>Est&aacute;s creciendo</h3><p id="levelHint">100 puntos para tu siguiente nivel.</p><progress id="levelProgress" max="100" value="0" aria-label="Progreso de nivel"></progress><p class="small">Tus misiones y EcoQuiz te ayudan a avanzar.</p><button class="text-button" onclick="mostrar('planeta')">Jugar EcoQuiz &rarr;</button></article></div></section>
+<section id="escaner" class="seccion"><div class="section-heading"><div><span class="overline">DALE UNA SEGUNDA VIDA</span><h1>Esc&aacute;ner inteligente</h1><p>Una foto, una oportunidad para aprender a reciclar mejor.</p></div></div><div class="two-columns"><article class="tarjeta"><label class="upload-zone" for="foto"><span data-icon="camera"></span><strong>Elige una foto de tu residuo</strong><span>JPG, PNG o WebP &middot; hasta 3 MB</span><input id="foto" type="file" accept="image/jpeg,image/png,image/webp"></label><img id="vista" class="preview" alt="Vista previa del residuo" hidden><button class="primary full" id="analizar" onclick="analizar()">Analizar residuo <span data-icon="arrow"></span></button><div id="resultado" class="resultado" role="status" aria-live="polite"></div></article><aside class="tarjeta calm"><span class="icon-tile" data-icon="book"></span><h2>Una foto m&aacute;s clara.<br>Una mejor orientaci&oacute;n.</h2><p>Enfoca un solo residuo y utiliza buena luz. Evita incluir rostros o datos personales.</p><p class="small">La IA puede equivocarse. Comprueba las normas de tu localidad. No manipules residuos peligrosos.</p></aside></div></section>
+<section id="retos" class="seccion"><div class="section-heading"><div><span class="overline">H&Aacute;BITOS QUE TRANSFORMAN</span><h1>Misiones de hoy</h1><p>Completa una acci&oacute;n, sube tu foto y verifica tu misi&oacute;n.</p></div></div><div class="cuadricula"><article class="tarjeta mission-card"><span class="icon-tile" data-icon="recycle"></span><span class="reward">+20 puntos</span><h3>Primer reciclaje</h3><p>Separa correctamente un residuo reciclable.</p><button class="secondary" data-mission="reciclaje" onclick="abrirMision('reciclaje')">Demostrar misi&oacute;n</button></article><article class="tarjeta mission-card"><span class="icon-tile blue" data-icon="water"></span><span class="reward">+30 puntos</span><h3>Aqua Reto</h3><p>Demuestra una acci&oacute;n para ahorrar agua.</p><button class="secondary" data-mission="agua" onclick="abrirMision('agua')">Demostrar misi&oacute;n</button></article><article class="tarjeta mission-card"><span class="icon-tile sand" data-icon="sprout"></span><span class="reward">+40 puntos</span><h3>Planta Futura</h3><p>Cuida una planta y muestra tu trabajo.</p><button class="secondary" data-mission="planta" onclick="abrirMision('planta')">Demostrar misi&oacute;n</button></article></div><p class="small">Una recompensa por misi&oacute;n al d&iacute;a.</p><div id="panelMision" class="tarjeta" hidden><h2 id="tituloMision">Tu misi&oacute;n</h2><p id="descripcionMision"></p><label class="upload-zone" for="fotoMision"><span data-icon="camera"></span><strong>Selecciona tu fotograf&iacute;a</strong><span>JPG, PNG o WebP &middot; hasta 3 MB</span><input id="fotoMision" type="file" accept="image/jpeg,image/png,image/webp"></label><img id="vistaMision" class="preview" alt="Foto de tu misi&oacute;n" hidden><button id="botonVerificar" class="primary" onclick="verificarMision()">Verificar mi misi&oacute;n</button><div id="resultadoMision" class="resultado" role="status" aria-live="polite"></div></div></section>
+<section id="planeta" class="seccion"><div class="section-heading"><div><span class="overline">APRENDE Y ACT&Uacute;A</span><h1>Explora el planeta</h1><p>Peque&ntilde;as ideas para cuidar nuestro gran hogar.</p></div></div><div class="two-columns"><article class="tarjeta calm"><span class="overline">TU DOSIS DE INSPIRACI&Oacute;N</span><div id="tarjetaConsejo"><div id="consejoEmoji" class="big-icon"></div><h2>Un consejo para hoy</h2><p id="consejoTexto" class="tip"></p></div><button class="secondary" onclick="nuevoConsejo()">Descubrir otro consejo &rarr;</button><p class="small">30 ideas sin repetirse hasta terminar la ronda.</p></article><article class="tarjeta"><div class="split"><span class="badge">EcoQuiz</span><span id="ecoPuntosHoy" class="reward">0 / 50 puntos hoy</span></div><div class="progress-track"><div id="ecoBarra"></div></div><div id="ecoPreguntaCaja"><div id="ecoPreguntaEmoji" class="quiz-icon"></div><p id="ecoContador" class="overline"></p><h2 id="ecoPreguntaTexto"></h2><div id="ecoOpciones" class="eco-opciones"></div><p id="ecoResultado" role="status" aria-live="polite"></p></div><button id="ecoSiguiente" class="secondary" onclick="siguienteEcoPregunta()" disabled>Siguiente pregunta &rarr;</button><p class="small">10 puntos por acierto. M&aacute;ximo 50 puntos diarios.</p></article></div></section>
+<section id="personaje" class="seccion"><div class="section-heading"><div><span class="overline">TU PROPIA HUELLA</span><h1>Mi perfil</h1><p>Un nombre, un compa&ntilde;ero y muchos peque&ntilde;os logros.</p></div></div><div class="two-columns"><article class="tarjeta profile-card"><div id="avatar" class="mascota"></div><h2 id="nombreMostrado">Hojita</h2><p><b id="puntosPerfil">0</b> EcoPuntos acumulados</p><span class="badge" id="profileLevel">Nivel 1</span></article><article class="tarjeta"><h2>Hazlo tuyo</h2><label for="nombre">Nombre de tu perfil</label><input id="nombre" maxlength="20" autocomplete="nickname" placeholder="Tu nombre o apodo"><p class="small">Usa un apodo; no necesitas publicar tu nombre completo.</p><button class="primary" id="saveName" onclick="guardarNombre()">Guardar nombre</button><h3 class="space-top">Tu compa&ntilde;ero ecol&oacute;gico</h3><div class="opciones"><button aria-label="Hoja" data-avatar="leaf" onclick="cambiarAvatar('leaf')"><span data-icon="leaf"></span></button><button aria-label="Brote" data-avatar="sprout" onclick="cambiarAvatar('sprout')"><span data-icon="sprout"></span></button><button aria-label="Flor" data-avatar="flower" onclick="cambiarAvatar('flower')"><span data-icon="flower"></span></button><button aria-label="Cactus" data-avatar="cactus" onclick="cambiarAvatar('cactus')"><span data-icon="cactus"></span></button></div><p class="small">El progreso del invitado y el de tu cuenta se guardan por separado.</p></article></div></section>
+<section id="ranking" class="seccion"><div class="section-heading"><div><span class="overline">CADA PUNTO ES UN PASO</span><h1>Top recicladores</h1><p>Consulta tu progreso y sigue super&aacute;ndote.</p></div></div><article class="tarjeta"><div class="split"><h2>Mis puntos</h2><div class="segmented" role="group" aria-label="Periodo"><button data-periodo="semana" onclick="cambiarPeriodoRanking('semana')">Semana</button><button data-periodo="mes" onclick="cambiarPeriodoRanking('mes')">Mes</button><button data-periodo="total" onclick="cambiarPeriodoRanking('total')">Hist&oacute;rico</button></div></div><div class="personal-score"><span class="big-icon" data-icon="trophy"></span><div><span id="rankingName">Hojita</span><strong id="rankingPoints">0 puntos</strong><p id="rankingPeriodo">Todo tu recorrido</p></div></div><p class="small">Semana y mes incluyen solo los puntos con fecha registrada.</p></article><article class="tarjeta community-notice"><span data-icon="lock"></span><div><h3>La clasificaci&oacute;n de la comunidad a&uacute;n no est&aacute; activa</h3><p>Por ahora solo mostramos tus puntos, sin jugadores ni posiciones inventadas. El ranking compartido necesita puntos verificados en el servidor.</p></div></article></section>
+<section id="cuenta" class="seccion"><div class="section-heading"><div><span class="overline">TU PROGRESO, CONTIGO</span><h1>Mi cuenta</h1><p>Contin&uacute;a tu aventura sin empezar de cero.</p></div></div><div class="account-layout"><aside class="account-story"><span class="icon-tile" data-icon="sprout"></span><h2>Tu cambio <br>merece quedarse.</h2><p>Guarda tu nombre, personaje, misiones y puntos en tu cuenta.</p><div class="story-line"><span data-icon="cloud"></span>Contin&uacute;a desde otro dispositivo</div><div class="story-line"><span data-icon="lock"></span>Tu progreso es privado</div><small>Tambi&eacute;n puedes explorar como invitado.</small></aside><div class="account-panel">
+<div id="cuentaInvitado"><div class="segmented auth-tabs" role="group" aria-label="Acceso"><button type="button" data-auth-mode="login" aria-pressed="true">Iniciar sesi&oacute;n</button><button type="button" data-auth-mode="register">Crear cuenta</button></div><h2 id="authTitle">Qu&eacute; bueno verte.</h2><p id="authDescription">Entra con tu correo y contrase&ntilde;a.</p><form id="cuentaFormulario"><div id="nameField" hidden><label for="cuentaNombre">Tu apodo</label><input id="cuentaNombre" autocomplete="nickname" minlength="2" maxlength="20" placeholder="As&iacute; te llamaremos"></div><label for="cuentaCorreo">Correo electr&oacute;nico</label><input id="cuentaCorreo" type="email" autocomplete="email" maxlength="254" required placeholder="tu@correo.com"><div id="passwordField"><label for="cuentaClave">Contrase&ntilde;a</label><div class="password-wrap"><input id="cuentaClave" type="password" autocomplete="current-password" required maxlength="128"><button type="button" id="togglePassword" aria-pressed="false" aria-label="Mostrar contrase&ntilde;a">Ver</button></div></div><div id="confirmField" hidden><label for="confirmClave">Repite tu contrase&ntilde;a</label><input id="confirmClave" type="password" autocomplete="new-password" maxlength="128"><p class="small">Al menos 8 caracteres. No reutilices otras contrase&ntilde;as.</p></div><button id="authSubmit" class="primary full" type="submit">Iniciar sesi&oacute;n &rarr;</button></form><button id="recuperarClave" class="text-button">Olvid&eacute; mi contrase&ntilde;a</button><div class="confirm-help"><strong>&iquest;Tu correo a&uacute;n no est&aacute; confirmado?</strong><p class="small">Revisa spam y abre el correo m&aacute;s reciente. Los enlaces anteriores pueden haber vencido.</p><button type="button" id="resendConfirmation" class="secondary">Reenviar confirmaci&oacute;n</button><p id="emailCooldown" class="small" role="status"></p></div></div>
+<div id="cuentaConectada" hidden><span class="icon-tile" data-icon="check"></span><h2>Este es tu espacio.</h2><p id="cuentaSaludo"></p><p class="small">Tu correo solo se muestra aqu&iacute;, dentro de tu cuenta.</p><button class="primary" onclick="mostrar('personaje')">Personalizar mi perfil</button><button id="cuentaSalir" class="secondary">Cerrar sesi&oacute;n</button></div>
+<form id="resetForm" hidden><span class="overline">UN NUEVO COMIENZO</span><h2>Elige una nueva contrase&ntilde;a</h2><label for="newPassword">Nueva contrase&ntilde;a</label><input id="newPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" required><label for="repeatPassword">Repite la nueva contrase&ntilde;a</label><input id="repeatPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" required><button id="resetSubmit" class="primary full" type="submit">Guardar contrase&ntilde;a</button></form>
+<div id="cloudConflict" class="notice" hidden><strong>Hay cambios pendientes en este dispositivo.</strong><p>Antes de cargar los cambios de otro dispositivo, guarda una copia de tu progreso local.</p><button id="exportPending" class="secondary">Guardar copia local</button><button id="reloadCloud" class="secondary">Usar progreso de la nube</button></div><div id="cuentaMensaje" class="resultado" role="status" aria-live="polite"></div><button class="text-button" onclick="mostrar('inicio')">Volver a explorar &rarr;</button></div></div></section>
+</main><footer><strong>reuseup.</strong><span>Un h&aacute;bito a la vez. Un futuro mejor.</span><span>2026</span></footer></div><div id="toast" class="toast" role="status" aria-live="polite" hidden></div><noscript><p>Activa JavaScript para utilizar ReuseUp.</p></noscript>
+<script src="script.js"></script><script src="progress.js"></script><script src="ranking.js"></script><script src="supabase-config.js"></script><script src="auth.js"></script><script src="visual.js"></script>
+</body></html>

@@ -615,3 +615,17 @@ if (document.getElementById("ecoPreguntaCaja")) {
   nuevoConsejo();
   siguienteEcoPregunta();
 }
+
+
+// Accessors for cloud sync. Preserve the original game state in memory.
+window.reuseupLeerProgreso = function () {
+  return { puntos, completados: { ...completados }, personaje, nombre };
+};
+window.reuseupAplicarProgreso = function (data) {
+  puntos = Math.max(0, Number(data.puntos) || 0);
+  completados = data.completados && typeof data.completados === "object" && !Array.isArray(data.completados) ? data.completados : {};
+  personaje = typeof data.personaje === "string" ? data.personaje : "🍃";
+  nombre = typeof data.nombre === "string" ? data.nombre.slice(0, 20) : "Hojita";
+  guardar();
+  actualizar();
+};

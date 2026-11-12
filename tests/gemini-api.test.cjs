@@ -42,13 +42,13 @@ function upstream(status, data) {
   global.fetch = async () => ({ ok: status < 400, status, json: async () => data });
 }
 
-test("scanner uses EXACTLY gemini-2.5-flash and keeps the old JSON contract", async () => {
+test("scanner preserves the configured gemini-3-flash-preview model and JSON contract", async () => {
   const res = await call();
   assert.equal(res.statusCode, 200);
   assert.equal(res.data.resultado, "Residuo reciclable.");
-  assert.equal(res.data.modelo, "gemini-2.5-flash");
+  assert.equal(res.data.modelo, "gemini-3-flash-preview");
   assert.equal(calls.length, 1);
-  assert.equal(calls[0].url, "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent");
+  assert.equal(calls[0].url, "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent");
   assert.equal(calls[0].options.headers["x-goog-api-key"], "fake-test-key-do-not-use");
   assert.ok(!calls[0].url.includes("fake-test-key"));
   const sent = JSON.parse(calls[0].options.body);
