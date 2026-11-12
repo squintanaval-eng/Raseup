@@ -1,6 +1,5 @@
-// Copy your Supabase Project URL and publishable/anon key here.
-// These values are PUBLIC. Never paste the service_role key or database password.
+// Public Supabase configuration (safe for browser). NEVER use service_role here.
 window.REUSEUP_SUPABASE = {
-  url: "",
-  anonKey: ""
+  url: "https://kwpgyiqwyccpxeldpugu.supabase.co",
+  anonKey: "sb_publishable_MkPtQWeynzySVGOFzXsilg_i0vHA65g"
 };
