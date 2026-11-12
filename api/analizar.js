@@ -1,7 +1,7 @@
 "use strict";
 
 // Server-only API. Never put an API key in HTML, browser JS, or this file.
-const MODELO = "gemini-2.5-flash";
+const MODELO = "gemini-3.5-flash";
 const RELEASE = "gemini-25-fix-1";
 const MAX_IMAGE_BYTES = 3 * 1024 * 1024;
 const TIMEOUT_MS = 45000;
@@ -40,7 +40,7 @@ function falloGoogle(res, status, data) {
   if (status === 403) return fallo(res, 502, "GEMINI_PERMISSION_DENIED",
     "Google deneg\u00f3 el acceso. Revisa los permisos y restricciones de la clave para Gemini.");
   if (status === 404) return fallo(res, 502, "GEMINI_MODEL_UNAVAILABLE",
-    "gemini-2.5-flash no est\u00e1 disponible para este proyecto de Google. No se cambi\u00f3 de modelo autom\u00e1ticamente.");
+    "gemini-3.5-flash no est\u00e1 disponible para este proyecto de Google. No se cambi\u00f3 de modelo autom\u00e1ticamente.");
   if (status === 429) {
     res.setHeader("Retry-After", "60");
     return fallo(res, 429, "GEMINI_QUOTA_EXCEEDED",
