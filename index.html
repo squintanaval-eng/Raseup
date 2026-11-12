@@ -16,6 +16,10 @@
   </header>
 
   <main class="contenedor">
+    <div class="cuenta-barra">
+      <span id="cuentaEstado">Modo invitado · progreso guardado solo en este dispositivo</span>
+      <button type="button" onclick="mostrar('cuenta')">Mi cuenta</button>
+    </div>
     <nav class="menu">
       <button onclick="mostrar('inicio')">🏠 Inicio</button>
       <button onclick="mostrar('escaner')">📸 Escáner</button>
@@ -194,6 +198,32 @@
   </div>
 </section>
 
+    <section id="cuenta" class="seccion">
+      <div class="tarjeta cuenta-panel">
+        <h2>Mi cuenta Reuse Up</h2>
+        <p>Guarda tu nombre y progreso para continuar desde otros dispositivos.</p>
+        <div id="cuentaInvitado">
+          <form id="cuentaFormulario">
+            <label for="cuentaNombre">Nombre público</label>
+            <input id="cuentaNombre" maxlength="20" autocomplete="nickname" placeholder="Tu nombre de reciclador">
+            <label for="cuentaCorreo">Correo electrónico</label>
+            <input id="cuentaCorreo" type="email" autocomplete="email" required placeholder="correo@ejemplo.com">
+            <label for="cuentaClave">Contraseña (mínimo 8 caracteres)</label>
+            <input id="cuentaClave" type="password" autocomplete="current-password" minlength="8" required>
+            <div class="cuenta-acciones">
+              <button type="submit" data-accion="entrar">Iniciar sesión</button>
+              <button type="submit" data-accion="registro">Crear cuenta</button>
+            </div>
+          </form>
+          <button type="button" id="recuperarClave">Olvidé mi contraseña</button>
+        </div>
+        <div id="cuentaConectada" hidden>
+          <p id="cuentaSaludo"></p>
+          <button type="button" id="cuentaSalir">Cerrar sesión</button>
+        </div>
+        <p id="cuentaMensaje" role="status" aria-live="polite"></p>
+      </div>
+    </section>
     <section id="ranking" class="seccion">
       <div class="ranking-hero tarjeta">
         <span class="ranking-kicker">REUSE UP · COMUNIDAD</span>
@@ -217,6 +247,9 @@
   <footer>Hecho con 💚 para cuidar nuestro planeta · ReuseUp 2026</footer>
   <script src="script.js"></script>
   <script src="ranking.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="auth.js"></script>
   <script src="visual.js"></script>
 </body>
 </html>
