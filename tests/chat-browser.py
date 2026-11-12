@@ -24,7 +24,6 @@ with sync_playwright() as p:
     browser = p.chromium.launch()
     context = browser.new_context(viewport={'width':1440,'height':1100}, reduced_motion='reduce')
     context.grant_permissions(['clipboard-read','clipboard-write'])
-    # Auth is not under test. All gameplay, theme, navigation and chat code are real.
     context.route('**/auth.js', lambda r:r.fulfill(content_type='application/javascript',body='ReuseProgress.lock(false); document.getElementById("cuentaEstado").textContent="Modo invitado";'))
     page = context.new_page()
     errors=[]
@@ -37,8 +36,6 @@ with sync_playwright() as p:
             route.fulfill(status=502,content_type='application/json',body=json.dumps({'error':'No se pudo conectar con la IA.'}))
         elif mode['value']=='xss':
             route.fulfill(content_type='application/json',body=json.dumps({'reply':'<img src=x onerror="window.chatXSS=true">'}))
-        elif mode['value']=='hold':
-            route.abort('failed')
         else:
             route.fulfill(content_type='application/json',body=json.dumps({'reply':'Empieza con papel limpio. Separa los materiales segun tu localidad.'}))
     page.route('**/api/chat',api)
@@ -64,7 +61,9 @@ with sync_playwright() as p:
     page.locator('#chatSend').click()
     page.wait_for_function('document.querySelectorAll(".chat-message.assistant:not(.is-thinking)").length === 2')
     check('follow-up includes context',len(calls[-1]['messages'])==3 and calls[-1]['messages'][1]['role']=='assistant')
+    page.bring_to_front()
     page.locator('#chatCopy').click()
+    page.wait_for_function('document.querySelector("#chatNotice").textContent.includes("copiada")')
     check('copy conversation works','copiada' in page.locator('#chatNotice').inner_text())
     mode['value']='error'
     page.locator('#chatInput').fill('Como ahorro agua?')
@@ -80,7 +79,6 @@ with sync_playwright() as p:
     page.locator('#chatSend').click()
     page.wait_for_function('document.querySelector("#chatMessages").textContent.includes("<img")')
     check('AI output cannot execute HTML',not page.evaluate('Boolean(window.chatXSS)') and page.locator('#chatMessages img').count()==0)
-    # A held promise allows deterministic cancellation and reset race tests.
     page.evaluate('window.realChatFetch=window.fetch;window.fetch=(url,opts)=>url==="/api/chat"?new Promise((resolve,reject)=>opts.signal.addEventListener("abort",()=>reject(new DOMException("Stopped","AbortError")))):window.realChatFetch(url,opts)')
     page.locator('#chatInput').fill('Lento');page.locator('#chatSend').click()
     check('stop visible while busy',page.locator('#chatStop').is_visible())
@@ -100,9 +98,9 @@ with sync_playwright() as p:
     for width in [320,390,768,1440]:
         page.set_viewport_size({'width':width,'height':900})
         page.wait_for_timeout(100)
+        page.screenshot(path=str(OUT/f'chat-{width}.png'),full_page=True)
         check(f'no horizontal overflow at {width}px',page.evaluate('document.documentElement.scrollWidth <= window.innerWidth'))
         check(f'composer fits at {width}px',page.locator('#chatForm').bounding_box()['width'] <= width)
-        page.screenshot(path=str(OUT/f'chat-{width}.png'),full_page=True)
     page.reload();page.wait_for_selector('#chat',state='attached');page.locator('[data-page="chat"]').click()
     check('reload starts fresh temporary conversation',page.locator('.chat-message').count()==0)
     check('no browser exceptions',not errors)
